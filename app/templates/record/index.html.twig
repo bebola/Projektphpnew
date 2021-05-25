@@ -14,9 +14,9 @@
             <tr>
                 <th>{{'label_id' |trans }}</th>
                 <th>{{'label_title' |trans }}</th>
-                <th>Tags</th>
+                <th>{{'label_tags' |trans }}</th>
                 <th scope="col">
-                    Actions
+                    {{'label_actions' |trans }}
                 </th>
             </tr>
             </thead>
@@ -28,7 +28,7 @@
                     <td>{{ item.tags|join(', ') }}</td>
                     <td>
                         <a href="{{ url('record_show', {id: item.id}) }}" title="view">
-                            view
+                            {{'label_view' |trans }}
                         </a>
                     </td>
                 </tr>

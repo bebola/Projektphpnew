@@ -30,6 +30,14 @@
                 <source>title_record_list</source>
                 <target>Galeria zdjęć</target>
             </trans-unit>
+            <trans-unit id="label_view">
+                <source>label_view</source>
+                <target>Zobacz</target>
+            </trans-unit>
+            <trans-unit id="title_record_details">
+                <source>title_record_details</source>
+                <target>Zdjęcie #%id%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

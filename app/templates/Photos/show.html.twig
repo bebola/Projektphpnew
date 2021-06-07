@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_Photos_details'|trans({'%id%': Photos.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_Photos_details'|trans({'%id%': Photos.id|default('')}) }}</h1>
+    {% if Photos is defined and Photos|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ Photos.id }}</dd>
+            <dt>{{ 'label_created_at'|trans }}</dt>
+            <dd>{{ Photos.createdAt|date('Y/m/d') }}</dd>
+            <dt>{{ 'label_updated_at'|trans }}</dt>
+            <dd>{{ Photos.updatedAt|date('Y/m/d') }}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{  Photos.title }}</dd>
+            <dt>{{ 'label_text'|trans }}</dt>
+            <dd>{{  Photos.text }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('Photos_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'action_back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

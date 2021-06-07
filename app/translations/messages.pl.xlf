@@ -58,6 +58,10 @@
                 <source>action_view</source>
                 <target>Zobacz</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>title_Photos_details</source>
+                <target>Szczegóły</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

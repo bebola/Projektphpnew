@@ -8,20 +8,25 @@
     <h1>
         {{ 'title_Photos_list'|trans }}
     </h1>
-    {% if Photos is defined and Photos|length %}
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_created_at'|trans }}</th>
-                <th>{{ 'label_updated_at'|trans }}</th>
-                <th>{{ 'label_title'|trans }}</th>
-                <th>{{ 'label_text'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'Photos.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'Photos.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'Photos.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'Photos.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_text'|trans, 'Photos.text') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for Photos in Photos %}
+            {% for Photos in pagination.items %}
                 <tr>
                     <td>{{ Photos.id }}</td>
                     <td>{{ Photos.createdAt|date('Y/m/d') }}</td>
@@ -37,6 +42,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}

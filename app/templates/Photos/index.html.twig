@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_Photos_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ 'title_Photos_list'|trans }}
+    </h1>
+    {% if Photos is defined and Photos|length %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label_id'|trans }}</th>
+                <th>{{ 'label_created_at'|trans }}</th>
+                <th>{{ 'label_updated_at'|trans }}</th>
+                <th>{{ 'label_title'|trans }}</th>
+                <th>{{ 'label_text'|trans }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for Photos in Photos %}
+                <tr>
+                    <td>{{ Photos.id }}</td>
+                    <td>{{ Photos.createdAt|date('Y/m/d') }}</td>
+                    <td>{{ Photos.updatedAt|date('Y/m/d') }}</td>
+                    <td>{{ Photos.title }}</td>
+                    <td>{{ Photos.text }}</td>
+                    <td>
+                        <a href="{{ url('Photos_show', {id: Photos.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{'action_view'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock  %}

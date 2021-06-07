@@ -75,7 +75,7 @@ class Photos
      *
      * @return \DateTimeInterface|null Created at
      */
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -87,14 +87,13 @@ class Photos
     public function setCreatedAt(\DateTimeInterface $createdAt): void
     {
         $this->createdAt = $createdAt;
-
     }
     /**
      * Getter for Updated at.
      *
      * @return \DateTimeInterface|null Updated at
      */
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -106,7 +105,6 @@ class Photos
     public function setUpdatedAt(\DateTimeInterface $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-
     }
     /**
      * Getter for Title.

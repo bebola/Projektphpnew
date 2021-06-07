@@ -38,6 +38,26 @@
                 <source>title_record_details</source>
                 <target>Zdjęcie #%id%</target>
             </trans-unit>
+            <trans-unit id="0">
+                <source>title_Photos_list</source>
+                <target>Lista zdjęć</target>
+            </trans-unit>
+            <trans-unit id="1">
+                <source>label_created_at</source>
+                <target>Data dodania</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label_updated_at</source>
+                <target>Data aktualizacji</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>label_text</source>
+                <target>Opis</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>action_view</source>
+                <target>Zobacz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

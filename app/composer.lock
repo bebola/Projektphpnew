@@ -3978,6 +3978,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "use `EnglishInflector` from the String component instead",
             "time": "2021-01-24T23:44:26+00:00"
         },
         {

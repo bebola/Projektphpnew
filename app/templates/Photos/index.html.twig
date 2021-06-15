@@ -21,7 +21,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'Photos.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'Photos.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'Photos.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_text'|trans, 'Photos.text') }}</th>
+                <th>{{ 'label_category'|trans }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
@@ -29,10 +29,10 @@
             {% for Photos in pagination.items %}
                 <tr>
                     <td>{{ Photos.id }}</td>
-                    <td>{{ Photos.createdAt|date('Y/m/d') }}</td>
-                    <td>{{ Photos.updatedAt|date('Y/m/d') }}</td>
+                    <td>{{ Photos.createdAt|format_date('long')}}</td>
+                    <td>{{ Photos.updatedAt|format_date('long')}}</td>
                     <td>{{ Photos.title }}</td>
-                    <td>{{ Photos.text }}</td>
+                    <td>{{ Photos.category.title }}</td>
                     <td>
                         <a href="{{ url('Photos_show', {id: Photos.id}) }}" title="{{ 'action_view'|trans }}">
                             {{'action_view'|trans }}

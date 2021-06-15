@@ -1,22 +1,23 @@
 <?php
 /**
- * Photos entity.
+ * Categories entity.
  */
 namespace App\Entity;
 
-use App\Repository\PhotosRepository;
+use App\Repository\CategoriesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Photos.
+ * * Class Categories.
  *
- * @ORM\Entity(repositoryClass=PhotosRepository::class)
- * @ORM\Table(name="Photos")
+ * @ORM\Entity(repositoryClass=CategoriesRepository::class)
+ * @ORM\Table (name="Categories")
  */
-class Photos
+class Categories
 {
     /**
-     * Primary key.
+     *  Primary key.
+     *
      * @var int
      *
      * @ORM\Id
@@ -26,7 +27,6 @@ class Photos
     private $id;
 
     /**
-     *
      * Created at.
      *
      * @var DateTimeInterface
@@ -49,24 +49,9 @@ class Photos
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=64)
      */
     private $title;
-
-    /**
-     * Text.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $text;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Categories::class, fetch="EXTRA_LAZY")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category;
     /**
      * Getter for Id.
      *
@@ -130,33 +115,4 @@ class Photos
     {
         $this->title = $title;
     }
-    /**
-     * Getter for Text.
-     *
-     * @return string Text
-     */
-    public function getText(): ?string
-    {
-        return $this->text;
-    }
-    /**
-     * Setter for Text.
-     *
-     * @param string $text Text
-     */
-    public function setText(?string $text): void
-    {
-        $this->text = $text;
-    }
-
-    public function getCategory(): ?Categories
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Categories $category): void
-    {
-        $this->category = $category;
-    }
-
 }

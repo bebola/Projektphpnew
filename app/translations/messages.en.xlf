@@ -55,8 +55,24 @@
                 <target>Edit</target>
             </trans-unit>
             <trans-unit id="5">
-                <source>title_Photos_details</source>
-                <target>Details</target>
+                <source>title_Categories_details</source>
+                <target>Categories details</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>title_Categories_list</source>
+                <target>Categories list</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>action_back_to_list</source>
+                <target>back</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>action_back_to_list</source>
+                <target>back</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>label_category</source>
+                <target>category</target>
             </trans-unit>
         </body>
     </file>

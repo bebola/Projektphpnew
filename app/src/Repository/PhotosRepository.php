@@ -26,7 +26,7 @@ class PhotosRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 5;
+    const PAGINATOR_ITEMS_PER_PAGE = 20;
 
     /**
      * PhotosRepository constructor.

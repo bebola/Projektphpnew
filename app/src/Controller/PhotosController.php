@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Photos controller.
  */
 
 namespace App\Controller;
@@ -49,6 +49,7 @@ class PhotosController extends AbstractController
      *
      * @Route(
      *     "/",
+     *     methods={"GET"},
      *     name="Photos_index",
      *
      * )

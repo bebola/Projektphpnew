@@ -40,7 +40,7 @@
             </trans-unit>
             <trans-unit id="0">
                 <source>title_Photos_list</source>
-                <target>Lista zdjęć</target>
+                <target>Zdjęcia</target>
             </trans-unit>
             <trans-unit id="1">
                 <source>label_created_at</source>
@@ -63,11 +63,11 @@
                 <target>Szczegóły</target>
             </trans-unit>
             <trans-unit id="6">
-                <source>title_Categories_list</source>
-                <target>Kategorie</target>
+                <source>title_Galleries_list</source>
+                <target>Galerie</target>
             </trans-unit>
             <trans-unit id="7">
-                <source>title_Categories_details</source>
+                <source>title_Galleries_details</source>
                 <target>Szczegóły</target>
             </trans-unit>
             <trans-unit id="8">
@@ -79,8 +79,56 @@
                 <target>powrót</target>
             </trans-unit>
             <trans-unit id="10">
-                <source>label_category</source>
-                <target>kategoria</target>
+                <source>label_gallery</source>
+                <target>galeria</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>title_Galleries_create</source>
+                <target>Dodaj galerię</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>action_save</source>
+                <target>zapisz</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>button_create</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>action_edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>title_Galleries_edit</source>
+                <target>Edytuj galerie</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>title_Galleries_delete</source>
+                <target>Usuń galerię</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>action_delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>title_Photos_create</source>
+                <target>Dodaj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>title_Photos_delete</source>
+                <target>Usuń zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>title_Photos_edit</source>
+                <target>edytuj</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>message.empty_list</source>
+                <target>Lista pusta</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>message_form_error</source>
+                <target>Błąd</target>
             </trans-unit>
         </body>
     </file>

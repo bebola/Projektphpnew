@@ -5,6 +5,7 @@
 namespace App\Entity;
 
 use App\Repository\PhotosRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,15 +59,15 @@ class Photos
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Categories::class, fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity=Galleries::class, fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private $gallery;
     /**
      * Getter for Id.
      *
@@ -149,14 +150,14 @@ class Photos
         $this->text = $text;
     }
 
-    public function getCategory(): ?Categories
+    public function getGalleries(): ?Galleries
     {
-        return $this->category;
+        return $this->gallery;
     }
 
-    public function setCategory(?Categories $category): void
+    public function setGalleries(?Galleries $gallery): void
     {
-        $this->category = $category;
+        $this->gallery = $gallery;
     }
 
 }

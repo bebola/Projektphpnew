@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    {{ include('menu.html.twig') }}
     <h1>
         {{ 'title_Photos_list'|trans }}
     </h1>
@@ -21,7 +22,8 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'Photos.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'Photos.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'Photos.title') }}</th>
-                <th>{{ 'label_category'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_text'|trans, 'Photos.text') }}</th>
+                <th>{{ 'label_gallery'|trans }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
@@ -32,10 +34,17 @@
                     <td>{{ Photos.createdAt|format_date('long')}}</td>
                     <td>{{ Photos.updatedAt|format_date('long')}}</td>
                     <td>{{ Photos.title }}</td>
-                    <td>{{ Photos.category.title }}</td>
+                    <td>{{ Photos.text }}</td>
+                    <td>{{ Photos.galleries.title }}</td>
                     <td>
                         <a href="{{ url('Photos_show', {id: Photos.id}) }}" title="{{ 'action_view'|trans }}">
                             {{'action_view'|trans }}
+                        </a>
+                        <a href="{{ url('Photos_edit', {id: Photos.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{'action_edit'|trans }}
+                        </a>
+                        <a href="{{ url('Photos_delete', {id: Photos.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{'action_delete'|trans }}
                         </a>
                     </td>
                 </tr>

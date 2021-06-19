@@ -1,19 +1,21 @@
 <?php
 /**
- * Categories entity.
+ * Galleries entity.
  */
 namespace App\Entity;
 
-use App\Repository\CategoriesRepository;
+use App\Repository\GalleriesRepository;
+use DateTimeInterface;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * * Class Categories.
+ * Class Galleries.
  *
- * @ORM\Entity(repositoryClass=CategoriesRepository::class)
- * @ORM\Table (name="Categories")
+ * @ORM\Entity(repositoryClass=GalleriesRepository::class)
+ * @ORM\Table (name="Galleries")
  */
-class Categories
+class Galleries
 {
     /**
      *  Primary key.
@@ -55,7 +57,19 @@ class Categories
     /**
      * Getter for Id.
      *
-     * @return int|null Result
+     * @var
+     *
+     * @ORM\OneToMany(
+     *     targetEntity=Photos::class,mappedBy="Galleries",fetch="EXTRA_LAZY",)
+     */
+    private Collection $Photos;
+    /**
+     * Collection.
+     *
+     * @var
+     *
+     *
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -114,5 +128,25 @@ class Categories
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+    public function getPhotos(): Collection
+    {
+       return $this->Photos;
+    }
+    public function addPhotos(Photos $Photos): void
+    {
+        if (!$this->Photos->contains($Photos)){
+            $this->Photos[] = $Photos;
+            $Photos->setGalleries($this);
+        }
+    }
+    public function removePhotos(Photos $Photos): void
+    {
+        if ($this->Photos->contains($Photos)){
+            $this->Photos->remove($Photos);
+            if ($Photos->getGalleries() === $this) {
+                $Photos->setGalleries(null);
+            }
+        }
     }
 }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav id="menu">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a href="{{ url('Galleries_index') }}"><button type="button" class="btn btn-light">Galerie</button></a>
+
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('Photos_index') }}"><button type="button" class="btn btn-light">Zdjęcia</button></a>
+            </li>
+        <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a href="{{ url('galleries_create') }}"><button type="button" class="btn btn-light">Dodaj galerie</button></a>
+        </li>
+            <li class="nav-item">
+                <a href="{{ url('photos_create') }}"><button type="button" class="btn btn-light">Dodaj Zdjęcie</button></a>
+            </li>
+    </nav>
+{% endblock %}

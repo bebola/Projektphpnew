@@ -24,10 +24,11 @@ class Photosfixtures extends AbstractBaseFixtures implements DependentFixtureInt
         $this->createMany(100, 'Photos', function ($i) {
                 $Photos = new Photos();
                 $Photos->setTitle($this->faker->sentence);
+                $Photos->setText($this->faker->sentence);
                 $Photos->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
                 $Photos->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
 
-                $Photos->setCategory($this->getRandomReference('Categories'));
+                $Photos->setGalleries($this->getRandomReference('Galleries'));
 
                 return $Photos;
             }
@@ -43,6 +44,6 @@ class Photosfixtures extends AbstractBaseFixtures implements DependentFixtureInt
      */
     public function getDependencies(): array
     {
-        return [Categoriesfixtures::class];
+        return [Galleriesfixtures::class];
     }
 }

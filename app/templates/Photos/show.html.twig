@@ -16,6 +16,8 @@
             <dd>{{ Photos.updatedAt|format_date('long')}}</dd>
             <dt>{{ 'label_title'|trans }}</dt>
             <dd>{{  Photos.title }}</dd>
+            <dt>{{ 'label_text'|trans }}</dt>
+            <dd>{{  Photos.text }}</dd>
         </dl>
         <p>
             <a href="{{ url('Photos_index') }}" title="{{ 'action_back_to_list'|trans }}">

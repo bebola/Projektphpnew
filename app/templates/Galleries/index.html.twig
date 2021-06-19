@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_Galleries_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    {{ include('menu.html.twig') }}
+    <h1>
+        {{ 'title_Galleries_list'|trans }}
+    </h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'Galleries.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'Galleries.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'Galleries.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'Galleries.title') }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
+            </tr>
+            </thead>
+            <body>
+            {% for Galleries in pagination.items %}
+                <tr>
+                    <td>{{ Galleries.id }}</td>
+                    <td>{{ Galleries.createdAt|format_date('long')}}</td>
+                    <td>{{ Galleries.updatedAt|format_date('long')}}</td>
+                    <td>{{ Galleries.title }}</td>
+                    <td>
+                        <a href="{{ url('Galleries_show', {id: Galleries.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{'action_view'|trans }}
+                        </a>
+                        <a href="{{ url('galleries_edit', {id: Galleries.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{'action_edit'|trans }}
+                        </a>
+                        <a href="{{ url('Galleries_delete', {id: Galleries.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{'action_delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </body>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <p>
+            {% include 'default/_single_flash_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        </p>
+    {% endif %}
+{% endblock  %}

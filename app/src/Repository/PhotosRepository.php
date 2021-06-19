@@ -26,7 +26,7 @@ class PhotosRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 20;
+    const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * PhotosRepository constructor.
@@ -59,5 +59,30 @@ class PhotosRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('Photos');
     }
-
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Photos $Photos Photos entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Photos $Photos): void
+    {
+        $this->_em->persist($Photos);
+        $this->_em->flush();
+    }
+    /**
+    * Delete record.
+    *
+    * @param \App\Entity\Photos $Photos Photos entity
+    *
+    * @throws \Doctrine\ORM\ORMException
+    * @throws \Doctrine\ORM\OptimisticLockException
+    */
+    public function delete(Photos $Photos): void
+    {
+        $this->_em->remove($Photos);
+        $this->_em->flush();
+    }
 }

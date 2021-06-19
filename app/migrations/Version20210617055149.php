@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210615060019 extends AbstractMigration
+final class Version20210617055149 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -21,14 +21,14 @@ final class Version20210615060019 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE Galleries (id INT AUTO_INCREMENT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, title VARCHAR(64) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE Photos (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, title VARCHAR(15) NOT NULL, text VARCHAR(255) DEFAULT NULL, INDEX IDX_FDAE5EF12469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE Photos ADD CONSTRAINT FK_FDAE5EF12469DE2 FOREIGN KEY (category_id) REFERENCES Galleries (id)');
+        $this->addSql('CREATE TABLE Photos (id INT AUTO_INCREMENT NOT NULL, gallery_id INT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, title VARCHAR(15) NOT NULL, text VARCHAR(255) NOT NULL, INDEX IDX_FDAE5EF4E7AF8F (gallery_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE Photos ADD CONSTRAINT FK_FDAE5EF4E7AF8F FOREIGN KEY (gallery_id) REFERENCES Galleries (id)');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE Photos DROP FOREIGN KEY FK_FDAE5EF12469DE2');
+        $this->addSql('ALTER TABLE Photos DROP FOREIGN KEY FK_FDAE5EF4E7AF8F');
         $this->addSql('DROP TABLE Galleries');
         $this->addSql('DROP TABLE Photos');
     }

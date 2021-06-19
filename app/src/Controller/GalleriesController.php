@@ -11,10 +11,10 @@ use App\Repository\GalleriesRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 
 /**
@@ -31,6 +31,7 @@ class GalleriesController extends AbstractController
     /**
      * GalleriesController constructor.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Repository\GalleriesRepository    $GalleriesRepository  Galleries repository
      * @param \Knp\Component\Pager\PaginatorInterface   $paginator   paginator interface
      */
@@ -59,13 +60,15 @@ class GalleriesController extends AbstractController
      * )
      */
 
-    public function index(Request $request): Response
+    public function index(Request $request, GalleriesRepository $GalleriesRepository, PaginatorInterface $paginator): Response
+
     {
-        $pagination = $this->paginator->paginate(
-            $this->GalleriesRepository->queryAll(),
+        $pagination = $paginator->paginate(
+            $GalleriesRepository->queryAll(),
             $request->query->getInt('page', 1),
             GalleriesRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+
 
         return $this->render(
             'Galleries/index.html.twig',
@@ -100,7 +103,7 @@ class GalleriesController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request     $request                HTTP request
-     * @param \App\Repository\GalleriesRepository          $GalleriesRepository   Galleries repository
+     * @param \App\Repository\GalleriesRepository          $GalleriesRepository   Galleries Repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -120,8 +123,6 @@ class GalleriesController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $Galleries->setCreatedAt(new \DateTime());
-            $Galleries->setUpdatedAt(new \DateTime());
             $GalleriesRepository->save($Galleries);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -158,7 +159,6 @@ class GalleriesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $Galleries->setUpdatedAt(new \DateTime());
             $GalleriesRepository->save($Galleries);
 
             $this->addFlash('success', 'message_updated_successfully');
@@ -179,6 +179,7 @@ class GalleriesController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Galleries                     $Galleries         Galleries entity
+     * @param \App\Repository\GalleriesRepository        $GalleriesRepository Galleries repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

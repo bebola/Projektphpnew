@@ -7,6 +7,9 @@ namespace App\Entity;
 use App\Repository\PhotosRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Class Photos.
@@ -33,6 +36,8 @@ class Photos
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -42,6 +47,8 @@ class Photos
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -50,7 +57,13 @@ class Photos
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
      */
     private $title;
 
@@ -60,6 +73,12 @@ class Photos
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=false)
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="255",
+     * )
      */
     private $text;
 
@@ -72,6 +91,7 @@ class Photos
      * Getter for Id.
      *
      * @return int|null Result
+     *
      */
     public function getId(): ?int
     {

@@ -120,7 +120,7 @@
             </trans-unit>
             <trans-unit id="20">
                 <source>title_Photos_edit</source>
-                <target>edytuj</target>
+                <target>Edytuj</target>
             </trans-unit>
             <trans-unit id="21">
                 <source>message.empty_list</source>

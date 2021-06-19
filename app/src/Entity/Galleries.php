@@ -8,17 +8,20 @@ use App\Repository\GalleriesRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Galleries.
  *
  * @ORM\Entity(repositoryClass=GalleriesRepository::class)
  * @ORM\Table (name="Galleries")
+ *
  */
 class Galleries
 {
     /**
-     *  Primary key.
+     * Primary key.
      *
      * @var int
      *
@@ -34,6 +37,10 @@ class Galleries
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
+     *
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -43,26 +50,56 @@ class Galleries
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="\DateTimeInterface")
+     *
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
     /**
      * Title.
      *
-     * @var string
      *
      * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
      */
     private $title;
     /**
      * Getter for Id.
      *
-     * @var
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Galleries[] $Galleries Galleries
      *
      * @ORM\OneToMany(
-     *     targetEntity=Photos::class,mappedBy="Galleries",fetch="EXTRA_LAZY",)
+     *     targetEntity="App\Entity\Photos",mappedBy="Galleries",fetch="EXTRA_LAZY",)
      */
     private Collection $Photos;
+
+    /**
+     * Code.
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     type="string",
+     *     length=64,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
+     *
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $code;
     /**
      * Collection.
      *
@@ -125,7 +162,7 @@ class Galleries
      *
      * @param string $title Title
      */
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
@@ -148,5 +185,17 @@ class Galleries
                 $Photos->setGalleries(null);
             }
         }
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 }

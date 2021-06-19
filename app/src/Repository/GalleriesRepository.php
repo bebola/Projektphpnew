@@ -33,7 +33,7 @@ namespace App\Repository;
     /**
     * Save record.
     *
-    * @param \App\Entity\Galleries $Galleries Galleries entity
+    * @param Galleries $Galleries Galleries entity
     *
     * @throws \Doctrine\ORM\ORMException
     * @throws \Doctrine\ORM\OptimisticLockException
@@ -47,7 +47,7 @@ namespace App\Repository;
         /**
          * Delete record.
          *
-         * @param \App\Entity\Galleries $Galleries Galleries entity
+         * @param Galleries $Galleries Galleries entity
          *
          * @throws \Doctrine\ORM\ORMException
          * @throws \Doctrine\ORM\OptimisticLockException

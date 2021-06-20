@@ -35,12 +35,14 @@
                         <a href="{{ url('Galleries_show', {id: Galleries.id}) }}" title="{{ 'action_view'|trans }}">
                             {{'action_view'|trans }}
                         </a>
+                        {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ url('galleries_edit', {id: Galleries.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{'action_edit'|trans }}
                         </a>
                         <a href="{{ url('Galleries_delete', {id: Galleries.id}) }}" title="{{ 'action_delete'|trans }}">
                             {{'action_delete'|trans }}
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

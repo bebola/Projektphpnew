@@ -5706,16 +5706,16 @@
         },
         {
             "name": "symfony/security-bundle",
-            "version": "v4.4.20",
+            "version": "v4.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "55a84ceb5f68e2dc836708e51f1ce1e5f7cecb7b"
+                "reference": "09fc284c4801f133c8acd9972a40174390b99917"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/55a84ceb5f68e2dc836708e51f1ce1e5f7cecb7b",
-                "reference": "55a84ceb5f68e2dc836708e51f1ce1e5f7cecb7b",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/09fc284c4801f133c8acd9972a40174390b99917",
+                "reference": "09fc284c4801f133c8acd9972a40174390b99917",
                 "shasum": ""
             },
             "require": {
@@ -5737,7 +5737,7 @@
                 "symfony/twig-bundle": "<4.4"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "^1.5|^2.0",
+                "doctrine/annotations": "^1.10.4",
                 "symfony/asset": "^3.4|^4.0|^5.0",
                 "symfony/browser-kit": "^4.2|^5.0",
                 "symfony/console": "^3.4|^4.0|^5.0",
@@ -5794,7 +5794,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-04T11:13:36+00:00"
+            "time": "2021-05-26T11:20:16+00:00"
         },
         {
             "name": "symfony/security-core",

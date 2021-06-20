@@ -122,6 +122,14 @@
                 <source>message_form_error</source>
                 <target>Error</target>
             </trans-unit>
+            <trans-unit id="22">
+                <source>action_logout</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>action_login</source>
+                <target>Log in</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

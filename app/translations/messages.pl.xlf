@@ -130,6 +130,14 @@
                 <source>message_form_error</source>
                 <target>Błąd</target>
             </trans-unit>
+            <trans-unit id="23">
+                <source>action_logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>action_login</source>
+                <target>Zaloguj</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

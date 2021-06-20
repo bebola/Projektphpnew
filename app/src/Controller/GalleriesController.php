@@ -10,6 +10,7 @@ use App\Form\GalleriesType;
 use App\Repository\GalleriesRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class GalleriesController.
  *
  * @Route ("/Galleries")
+ *
  */
 class GalleriesController extends AbstractController
 {

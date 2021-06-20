@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Photos;
 use App\Form\PhotosType;
 use App\Repository\PhotosRepository;
+use App\Service\PhotosService;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,24 +26,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PhotosController extends AbstractController
 {
-
-    private PhotosRepository $PhotosRepository;
-
-    private PaginatorInterface $paginator;
+    private PhotosService $photosService;
 
     /**
      * PhotosController constructor.
      *
-     * @param \App\Repository\PhotosRepository $PhotosRepository Photos repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator paginator interface
+     * @param \App\Service\PhotosService $photosService Photos service
      */
-
-    public function __construct(PhotosRepository $PhotosRepository, PaginatorInterface $paginator)
+    public function __construct(PhotosService $photosService)
     {
-        $this->PhotosRepository = $PhotosRepository;
-        $this->paginator = $paginator;
+        $this->photosService = $photosService;
     }
-
 
     /**
      * Index_action.
@@ -62,14 +56,9 @@ class PhotosController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $pagination = $this->paginator->paginate(
-            $this->PhotosRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            PhotosRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $pagination = $this->photosService->createPaginatedList($request->query->getInt('page', 1));
 
         return $this->render(
-
           'Photos\index.html.twig',
         ['pagination' => $pagination]
       );
@@ -91,10 +80,9 @@ class PhotosController extends AbstractController
 
     public function show(int $id): Response
     {
-        $Photos = $this->PhotosRepository->findOneById($id);
         return $this->render(
             'Photos/show.html.twig',
-        ['Photos' => $Photos]
+            ['Photos' => $this->photosService->getOne($id)]
         );
     }
     /**
@@ -115,16 +103,14 @@ class PhotosController extends AbstractController
      * )
      * @IsGranted("ROLE_ADMIN")
      */
-    public function create(Request $request, PhotosRepository $PhotosRepository): Response
+    public function create(Request $request): Response
     {
         $Photos = new Photos();
         $form = $this->createForm(PhotosType::class, $Photos);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $Photos->setCreatedAt(new \DateTime());
-            $Photos->setUpdatedAt(new \DateTime());
-            $PhotosRepository->save($Photos);
+            $this->photosService->save($Photos, $form->get('file')->getData());
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -155,14 +141,13 @@ class PhotosController extends AbstractController
      *     name="Photos_edit",
      * )
      */
-    public function edit(Request $request, Photos $Photos, PhotosRepository $PhotosRepository): Response
+    public function edit(Request $request, Photos $Photos): Response
     {
         $form = $this->createForm(PhotosType::class, $Photos, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $Photos->setUpdatedAt(new \DateTime());
-            $PhotosRepository->save($Photos);
+            $this->photosService->save($Photos, $form->get('file')->getData());
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -196,7 +181,7 @@ class PhotosController extends AbstractController
      *     name="Photos_delete",
      * )
      */
-    public function delete(Request $request, Photos $Photos, PhotosRepository $PhotosRepository): Response
+    public function delete(Request $request, Photos $Photos): Response
     {
         $form = $this->createForm(FormType::class, $Photos, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -206,7 +191,8 @@ class PhotosController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $PhotosRepository->delete($Photos);
+            $this->photosService->delete($Photos);
+
             $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('Photos_index');

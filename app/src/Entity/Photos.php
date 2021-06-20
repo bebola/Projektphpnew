@@ -83,10 +83,33 @@ class Photos
     private $text;
 
     /**
+     * Filename.
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     type="string",
+     *     length=191,
+     * )
+     *
+     * @Assert\Type(type="string")
+     */
+    private $filename;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Galleries::class, fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
     private $gallery;
+
+    /**
+     * Photos constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
     /**
      * Getter for Id.
      *
@@ -180,4 +203,19 @@ class Photos
         $this->gallery = $gallery;
     }
 
+    /**
+     * @return string
+     */
+    public function getFilename(): string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string $filename
+     */
+    public function setFilename(string $filename): void
+    {
+        $this->filename = $filename;
+    }
 }

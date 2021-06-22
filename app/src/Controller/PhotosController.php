@@ -7,9 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Photos;
 use App\Form\PhotosType;
-use App\Repository\PhotosRepository;
 use App\Service\PhotosService;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;

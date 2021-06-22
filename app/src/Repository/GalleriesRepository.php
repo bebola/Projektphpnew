@@ -64,6 +64,24 @@ namespace App\Repository;
             return $this->getOrCreateQueryBuilder()
                 ->orderBy('Galleries.updatedAt', 'DESC');
         }
+
+        /**
+         * @param int $id
+         * @return Galleries|null
+         * @throws \Doctrine\ORM\NonUniqueResultException
+         */
+        public function getOneWithPhotos(int $id): ?Galleries
+        {
+            $qb = $this->createQueryBuilder('Galleries')
+                ->select('Galleries', 'Photos')
+                ->join('Galleries.Photos', 'Photos')
+                ->where('Galleries.id = :id')
+                ->setParameter('id', $id)
+            ;
+
+            return $qb->getQuery()->getOneOrNullResult();
+        }
+
         private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
         {
             return $queryBuilder ?? $this->createQueryBuilder( 'Galleries');

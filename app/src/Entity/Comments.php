@@ -35,8 +35,10 @@ class Comments
     private $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Photos::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Photos", inversedBy="comments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="photos_id", referencedColumnName="id")
+     * })
      */
     private $Photos;
 

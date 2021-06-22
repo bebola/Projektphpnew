@@ -99,15 +99,17 @@ class Photos
     private $filename;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Galleries::class, fetch="EXTRA_LAZY")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Galleries", inversedBy="Photos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
+     * })
      */
     private $gallery;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Photos")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="Photos")
      */
-    private $comments;
+    private $Comments;
 
     /**
      * Photos constructor.
@@ -115,7 +117,7 @@ class Photos
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->comments = new ArrayCollection();
+        $this->Comments = new ArrayCollection();
     }
 
     /**
@@ -232,13 +234,13 @@ class Photos
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        return $this->Comments;
     }
 
     public function addComment(Comments $comment): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
+        if (!$this->Comments->contains($comment)) {
+            $this->Comments[] = $comment;
             $comment->setPhotos($this);
         }
 
@@ -247,7 +249,7 @@ class Photos
 
     public function removeComment(Comments $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->Comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getPhotos() === $this) {
                 $comment->setPhotos(null);

@@ -59,6 +59,16 @@ class PhotosService
     }
 
     /**
+     * @param int $id
+     * @return Photos|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getOneWithComments(int $id)
+    {
+        return $this->PhotosRepository->getOneWithComments($id);
+    }
+
+    /**
      * @param Photos $Photos
      */
     public function save(Photos $Photos, UploadedFile $file = null)

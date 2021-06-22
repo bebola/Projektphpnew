@@ -10,6 +10,7 @@ use App\Entity\Galleries;
 use App\Entity\Photos;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -52,24 +53,11 @@ class CommentsType extends AbstractType
         );
         $builder->add(
             'text',
-            TextType::class,
+            TextareaType::class,
             [
                 'label' => 'label_text',
                 'required' => true,
                 'attr' => ['max_length' => 255],
-            ]
-        );
-        $builder->add(
-            'photos',
-            EntityType::class,
-            [
-                'class' => Photos::class,
-                'choice_label' => function ($Photos) {
-                    return $Photos->getTitle();
-                },
-                'label' => 'label_photo',
-                'placeholder' => 'Wybierz zdjęcie',
-                'required' => true,
             ]
         );
     }

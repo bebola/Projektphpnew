@@ -73,12 +73,12 @@ class GalleriesController extends AbstractController
      *     methods={"GET"},
      *     name="Galleries_show",
      *     requirements={"id": "[1-9]\d*"},
-     *
      * )
      */
-
-    public function show(Galleries $Galleries): Response
+    public function show(Request $request, int $id): Response
     {
+        $Galleries = $this->GalleriesService->getOneWithPhotos($id);
+
         return $this->render(
             'Galleries/show.html.twig',
             ['Galleries' => $Galleries]

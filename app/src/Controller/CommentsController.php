@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Comments;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
+use App\Service\PhotosService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -22,6 +23,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommentsController extends AbstractController
 {
+    /**
+     * @var PhotosService
+     */
+    private PhotosService $photosService;
+
+    /**
+     * CommentsController constructor.
+     * @param PhotosService $photosService
+     */
+    public function __construct(PhotosService $photosService)
+    {
+        $this->photosService = $photosService;
+    }
+
     /**
      * Index action.
      *
@@ -84,20 +99,28 @@ class CommentsController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/create",
+     *     "/create/{photoId}/photo",
      *     methods={"GET", "POST"},
      *     name="Comments_create",
      * )
      */
-    public function create(Request $request, CommentsRepository $CommentsRepository): Response
+    public function create(Request $request, int $photoId, CommentsRepository $CommentsRepository): Response
     {
+        $Photos = $this->photosService->getOne($photoId);
+        if($Photos === null) {
+            return $this->redirectToRoute('Comments_index');
+        }
+
         $Comments = new Comments();
-        $form = $this->createForm(CommentsType::class, $Comments);
+        $form = $this->createForm(CommentsType::class, $Comments, [
+            'action' => $this->generateUrl('Comments_create', ['photoId' => $Photos->getId()])
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Comments->setCreatedAt(new \DateTime());
             $Comments->setUpdatedAt(new \DateTime());
+            $Comments->setPhotos($Photos);
             $CommentsRepository->save($Comments);
 
             return $this->redirectToRoute('Comments_index');

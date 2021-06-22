@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
+    {% if Galleries is defined and Galleries is not null %}
     {{ 'title_Galleries_details'|trans({'%id%': Galleries.id|default('')}) }}
+    {% endif %}
 {% endblock %}
 
 {% block body %}
+    {% if Galleries is defined and Galleries is not null %}
     <h1>{{ 'title_Galleries_details'|trans({'%id%': Galleries.id|default('')}) }}</h1>
-    {% if Galleries is defined and Galleries|length %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ Galleries.id }}</dd>
@@ -17,6 +19,15 @@
             <dt>{{ 'label_title'|trans }}</dt>
             <dd>{{  Galleries.title }}</dd>
         </dl>
+        {% if Galleries.Photos|length %}
+        <div class="row">
+            {% for Photos in Galleries.Photos %}
+                <div style="float: left">
+                    <img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.filename }}">
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <p>
             <a href="{{ url('Galleries_index') }}" title="{{ 'action_back_to_list'|trans }}">
                 {{ 'action_back_to_list'|trans }}

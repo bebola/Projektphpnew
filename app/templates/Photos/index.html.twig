@@ -27,7 +27,7 @@
                     <td>{{ Photos.galleries.title }}</td>
                     <td>
                         <a href="{{ url('Photos_show', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Zobacz</button></a>
-                        <a href="{{ url('Comments_create') }}"><button type="button" class="btn btn-light">Skomentuj</button></a>
+                        <a href="{{ url('Comments_create', {photoId: Photos.id}) }}"><button type="button" class="btn btn-light">Skomentuj</button></a>
                         {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ url('Photos_edit', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Edytuj</button></a>
                         <a href="{{ url('Photos_delete', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Usuń</button></a>

@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\GalleriesRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -76,8 +77,7 @@ class Galleries
      *
      * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Galleries[] $Galleries Galleries
      *
-     * @ORM\OneToMany(
-     *     targetEntity="App\Entity\Photos",mappedBy="Galleries",fetch="EXTRA_LAZY",)
+     * @ORM\OneToMany(targetEntity="App\Entity\Photos", mappedBy="gallery", fetch="EXTRA_LAZY" ,)
      */
     private Collection $Photos;
 
@@ -100,12 +100,16 @@ class Galleries
      * @Gedmo\Slug(fields={"title"})
      */
     private $code;
+
     /**
-     * Collection.
-     *
-     * @var
-     *
-     *
+     * Galleries constructor.
+     */
+    public function __construct()
+    {
+        $this->Photos = new ArrayCollection();
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -166,10 +170,15 @@ class Galleries
     {
         $this->title = $title;
     }
+
+    /**
+     * @return Collection
+     */
     public function getPhotos(): Collection
     {
        return $this->Photos;
     }
+
     public function addPhotos(Photos $Photos): void
     {
         if (!$this->Photos->contains($Photos)){

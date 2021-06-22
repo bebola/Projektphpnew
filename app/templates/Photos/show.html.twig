@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_Photos_details'|trans({'%id%': Photos.id|default('')}) }}</h1>
-    {% if Photos is defined and Photos|length %}
+    {% if Photos is defined and Photos is not null %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ Photos.id }}</dd>
@@ -21,6 +21,24 @@
             <dt>{{ 'label_text'|trans }}</dt>
             <dd>{{  Photos.text }}</dd>
         </dl>
+        {% if Photos.Comments|length %}
+            <div class="row">
+                {% for Comment in Photos.Comments %}
+                    <div style="border: 1px solid #000000;">
+                        <dl class="dl-horizontal">
+                            <dt>{{ 'label_nick'|trans }}</dt>
+                            <dd>{{ Comment.nick }}</dd>
+                            <dt>{{ 'label_email'|trans }}</dt>
+                            <dd>{{ Comment.email }}</dd>
+                            <dt>{{ 'label_text'|trans }}</dt>
+                            <dd>{{ Comment.text }}</dd>
+                            <dt>{{ 'label_created_at'|trans }}</dt>
+                            <dd>{{ Comment.createdAt|date('Y-m-d H:i') }}</dd>
+                        </dl>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <p>
             <a href="{{ url('Photos_index') }}" title="{{ 'action_back_to_list'|trans }}">
                 {{ 'action_back_to_list'|trans }}

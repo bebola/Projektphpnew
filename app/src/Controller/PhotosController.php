@@ -77,12 +77,13 @@ class PhotosController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-
     public function show(int $id): Response
     {
+        $Photos = $this->photosService->getOneWithComments($id);
+
         return $this->render(
             'Photos/show.html.twig',
-            ['Photos' => $this->photosService->getOne($id)]
+            ['Photos' => $Photos]
         );
     }
     /**

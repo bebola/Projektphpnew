@@ -49,6 +49,21 @@ class PhotosRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $id
+     * @return \App\Entity\Photos|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getOneWithComments(int $id)
+    {
+        $qb = $this->createQueryBuilder('Photos')
+            ->select('Photos', 'Comments')
+            ->join('Photos.Comments', 'Comments')
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder

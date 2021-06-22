@@ -82,4 +82,14 @@ class GalleriesService
     {
         $this->GalleriesRepository->delete($Galleries);
     }
+
+    /**
+     * @param int $id
+     * @return Galleries|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getOneWithPhotos(int $id)
+    {
+        return $this->GalleriesRepository->getOneWithPhotos($id);
+    }
 }

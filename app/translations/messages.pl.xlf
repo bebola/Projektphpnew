@@ -40,7 +40,7 @@
             </trans-unit>
             <trans-unit id="0">
                 <source>title_Photos_list</source>
-                <target>Zdjęcia</target>
+                <target>zdjęcia</target>
             </trans-unit>
             <trans-unit id="1">
                 <source>label_created_at</source>
@@ -64,7 +64,7 @@
             </trans-unit>
             <trans-unit id="6">
                 <source>title_Galleries_list</source>
-                <target>Galerie</target>
+                <target>galerie</target>
             </trans-unit>
             <trans-unit id="7">
                 <source>title_Galleries_details</source>
@@ -189,6 +189,10 @@
             <trans-unit id="37">
                 <source>title_Comments_details</source>
                 <target>Szczegóły komntarza</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>title_home</source>
+                <target>Home</target>
             </trans-unit>
         </body>
     </file>

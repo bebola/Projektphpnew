@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block body %}
-<h1>Witaj w Galerii</h1>
+<h1>welcome</h1>
+    <img src="" id="image" width="800px">
+
+    <script type="text/javascript">
+        let image = document.getElementById('image');
+        let images = ['1.jpg','2.jpg','3.jpg','4.jpg']
+        setInterval(function(){
+            let random = Math.floor(Math.random() * 4);
+            image.src = images[random];
+        }, 800);
+    </script>
+
 {% endblock %}

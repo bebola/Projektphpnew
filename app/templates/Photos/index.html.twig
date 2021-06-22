@@ -9,20 +9,12 @@
         {{ 'title_Photos_list'|trans }}
     </h1>
     {% if pagination is defined and pagination.items|length %}
-
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
+        <div class="row">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'Photos.id') }}</th>
                 <th>{{ 'label_photo'|trans }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'Photos.createdAt') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'Photos.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'Photos.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_text'|trans, 'Photos.text') }}</th>
                 <th>{{ 'label_gallery'|trans }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
@@ -30,12 +22,8 @@
             <tbody>
             {% for Photos in pagination.items %}
                 <tr>
-                    <td>{{ Photos.id }}</td>
-                    <td><img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.title }}" width="120px" height="150px"></td>
-                    <td>{{ Photos.createdAt|format_date('long')}}</td>
-                    <td>{{ Photos.updatedAt|format_date('long')}}</td>
+                    <td><img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.title }}" width="110px" height="150px"></td>
                     <td>{{ Photos.title }}</td>
-                    <td>{{ Photos.text }}</td>
                     <td>{{ Photos.galleries.title }}</td>
                     <td>
                         <a href="{{ url('Photos_show', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Zobacz</button></a>
@@ -51,6 +39,7 @@
         </table>
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
+        </div>
         </div>
     {% else %}
         <p>

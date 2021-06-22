@@ -1,8 +1,8 @@
 body {
     background-color: white;
     font-family: 'Roboto', sans-serif;
+    width:100%;
 }
-
 h1 {
     color: black;
     margin-top: 1em;
@@ -13,4 +13,28 @@ img {
     display: block;
     margin: 0 auto;
     transition: 0.3s;
+}
+#form {
+    width:800px;
+    display: block;
+    height:200px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#container {
+    width:1000px;
+    height: 350px;
+    margin-top:50px;
+    background-color: #f8f9fb;
+    margin-left: auto;
+    margin-right: auto;
+}
+#container2 {
+    width:1000px;
+    height: 200px;
+    margin-top:50px;
+    background-color: #f8f9fb;
+    margin-left: auto;
+    margin-right: auto;
 }

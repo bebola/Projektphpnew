@@ -68,7 +68,7 @@
             </trans-unit>
             <trans-unit id="7">
                 <source>title_Galleries_details</source>
-                <target>Szczegóły</target>
+                <target>szczegóły</target>
             </trans-unit>
             <trans-unit id="8">
                 <source>action_back_to_list</source>
@@ -176,7 +176,7 @@
             </trans-unit>
             <trans-unit id="34">
                 <source>title_Comments_list</source>
-                <target>Lista komentarzy</target>
+                <target>komentarze</target>
             </trans-unit>
             <trans-unit id="35">
                 <source>action_add</source>

@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
+    <div id="container">
     <h1>{{ 'title_Comments_create'|trans }}</h1>
+    <div id="form">
     {{ form_start(form, { method: 'POST', action: url('Comments_create') }) }}
     {{ form_widget(form) }}
     <div class="form-group row float-sm-right">
@@ -15,6 +17,8 @@
         <a href="{{ url('Comments_index') }}" class="btn btn-link">
             {{ 'action_back_to_list'|trans }}
         </a>
+    </div>
+    </div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

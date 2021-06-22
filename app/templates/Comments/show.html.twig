@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_Comments_details'|trans({'%id%': Comments.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_Comments_details'|trans({'%id%': Comments.id|default('')}) }}</h1>
+    {% if Comments is defined and Comments|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ Comments.id }}</dd>
+            <dt>{{ 'label_created_at'|trans }}</dt>
+            <dd>{{ Comments.createdAt|format_date('long')}}</dd>
+            <dt>{{ 'label_updated_at'|trans }}</dt>
+            <dd>{{ Comments.updatedAt|format_date('long')}}</dd>
+            <dt>{{ 'label_nick'|trans }}</dt>
+            <dd>{{  Comments.nick }}</dd>
+            <dt>{{ 'label_email'|trans }}</dt>
+            <dd>{{  Comments.email }}</dd>
+            <dt>{{ 'label_text'|trans }}</dt>
+            <dd>{{  Comments.text }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('Comments_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'action_back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

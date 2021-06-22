@@ -4,6 +4,7 @@
  */
 namespace App\DataFixtures;
 
+use App\Entity\Comments;
 use App\Entity\Photos;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

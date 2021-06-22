@@ -8,9 +8,8 @@ namespace App\Controller;
 use App\Entity\Galleries;
 use App\Form\GalleriesType;
 use App\Repository\GalleriesRepository;
+use App\Service\GalleriesService;
 use Doctrine\ORM\OptimisticLockException;
-use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,54 +25,38 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GalleriesController extends AbstractController
 {
-    private GalleriesRepository $GalleriesRepository;
-
-    private PaginatorInterface $paginator;
+    private GalleriesService $GalleriesService;
 
     /**
      * GalleriesController constructor.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\GalleriesRepository    $GalleriesRepository  Galleries repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator   paginator interface
+     * @param \App\Service\GalleriesService $GalleriesService Galleries service
      */
 
-    public function __construct(GalleriesRepository $GalleriesRepository, PaginatorInterface $paginator)
+    public function __construct(GalleriesService $GalleriesService)
     {
-        $this->GalleriesRepository = $GalleriesRepository;
-        $this->paginator = $paginator;
+        $this->GalleriesService = $GalleriesService;
     }
 
     /**
      * Index action.
      *
-     * @param Request                   $request                    HTTP request
-     * @param GalleriesRepository     $GalleriesRepository       Galleries repository
-     * @param PaginatorInterface        $paginator                  Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
-     * @return Response                                             HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
-
      * @Route(
      *     "/",
      *     methods={"GET"},
      *     name="Galleries_index",
-     *
      * )
      */
-
-    public function index(Request $request, GalleriesRepository $GalleriesRepository, PaginatorInterface $paginator): Response
-
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $GalleriesRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            GalleriesRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-
+        $pagination = $this->GalleriesService->createPaginatedList($request->query->getInt('page', 1));
 
         return $this->render(
-            'Galleries/index.html.twig',
+            'Galleries\index.html.twig',
             ['pagination' => $pagination]
         );
     }

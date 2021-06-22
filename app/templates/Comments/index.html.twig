@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_Comments_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ 'title_Comments_list'|trans }}
+    </h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'Comments.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'Comments.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_updated_at'|trans, 'Comments.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_nick'|trans, 'Comments.nick') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'Comments.email') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_text'|trans, 'Comments.text') }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
+            </tr>
+            </thead>
+            <body>
+            {% for Comments in pagination.items %}
+                <tr>
+                    <td>{{ Comments.id }}</td>
+                    <td>{{ Comments.createdAt|format_date('long')}}</td>
+                    <td>{{ Comments.updatedAt|format_date('long')}}</td>
+                    <td>{{ Comments.nick }}</td>
+                    <td>{{ Comments.email }}</td>
+                    <td>{{ Comments.text }}</td>
+                    <td>
+                        <a href="{{ url('Comments_show', {id: Comments.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{'action_view'|trans }}
+                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ url('Comments_delete', {id: Comments.id}) }}" title="{{ 'action_delete'|trans }}">
+                                {{'action_delete'|trans }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </body>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <p>
+            {% include 'default/_single_flash_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        </p>
+    {% endif %}
+{% endblock  %}

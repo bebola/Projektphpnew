@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Repository\PhotosRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -103,11 +105,17 @@ class Photos
     private $gallery;
 
     /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Photos")
+     */
+    private $comments;
+
+    /**
      * Photos constructor.
      */
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -217,5 +225,35 @@ class Photos
     public function setFilename(string $filename): void
     {
         $this->filename = $filename;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPhotos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPhotos() === $this) {
+                $comment->setPhotos(null);
+            }
+        }
+
+        return $this;
     }
 }

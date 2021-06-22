@@ -32,16 +32,11 @@
                     <td>{{ Galleries.updatedAt|format_date('long')}}</td>
                     <td>{{ Galleries.title }}</td>
                     <td>
-                        <a href="{{ url('Galleries_show', {id: Galleries.id}) }}" title="{{ 'action_view'|trans }}">
-                            {{'action_view'|trans }}
+                        <a href="{{ url('Galleries_show', {id: Galleries.id}) }}"><button type="button" class="btn btn-light">Zobacz</button></a>
                         </a>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ url('galleries_edit', {id: Galleries.id}) }}" title="{{ 'action_edit'|trans }}">
-                            {{'action_edit'|trans }}
-                        </a>
-                        <a href="{{ url('Galleries_delete', {id: Galleries.id}) }}" title="{{ 'action_delete'|trans }}">
-                            {{'action_delete'|trans }}
-                        </a>
+                        <a href="{{ url('galleries_edit', {id: Galleries.id}) }}"><button type="button" class="btn btn-light">Edytuj</button></a>
+                        <a href="{{ url('Galleries_delete', {id: Galleries.id}) }}"<button type="button" class="btn btn-light">Usuń</button></a>
                         {% endif %}
                     </td>
                 </tr>

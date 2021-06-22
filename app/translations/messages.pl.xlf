@@ -138,6 +138,58 @@
                 <source>action_login</source>
                 <target>Zaloguj</target>
             </trans-unit>
+            <trans-unit id="25">
+                <source>label_photo</source>
+                <target>Zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>message_item_not_found</source>
+                <target>Nie znaleziono</target>
+            </trans-unit>
+                <trans-unit id="27">
+                <source>label_upload_photo</source>
+                    <target>Dodaj zdjęcie</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>label_none</source>
+                <target>Nie wybrano galerii</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>message_updated_successfully</source>
+                <target>Pomyślnie zaktualizowano</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>title_Comments_create</source>
+                <target>Dodaj komentarz</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>title_Comments_delete</source>
+                <target>Usuń komentarz</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>label_nick</source>
+                <target>Nick</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>title_Comments_list</source>
+                <target>Lista komentarzy</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>action_add</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source> message.deleted_successfully</source>
+                <target>Usunięto pomyślnie</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>title_Comments_details</source>
+                <target>Szczegóły komntarza</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

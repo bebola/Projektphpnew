@@ -130,6 +130,54 @@
                 <source>action_login</source>
                 <target>Log in</target>
             </trans-unit>
+            <trans-unit id="24">
+                <source>label_photo</source>
+                <target>Photo</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>message_item_not_found</source>
+                <target>Not found</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>label_upload_photo</source>
+                <target>Add photo</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source> 'label_none'</source>
+                <target>None of gallery</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>title_Comments_create</source>
+                <target>Add comment</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>title_Comments_delete</source>
+                <target>Delete comment</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>label_nick</source>
+                <target>Nick</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>title_Comments_list</source>
+                <target>Comment list</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>action_add</source>
+                <target>Add</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source> message.deleted_successfully</source>
+                <target>Deleted successfully</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>title_Comments_details</source>
+                <target>Comment details</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

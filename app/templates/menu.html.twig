@@ -6,13 +6,16 @@
         <li class="nav-item">
             <a href="{{ url('Photos_index') }}"><button type="button" class="btn btn-light">Zdjęcia</button></a>
         </li>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li class="nav-item">
+                <a href="{{ url('Comments_index') }}"><button type="button" class="btn btn-light">Komentarze</button></a>
+            </li>
         <li class="nav-item">
             <a href="{{ url('galleries_create') }}"><button type="button" class="btn btn-light">Dodaj galerie</button></a>
         </li>
         <li class="nav-item">
             <a href="{{ url('photos_create') }}"><button type="button" class="btn btn-light">Dodaj Zdjęcie</button></a>
         </li>
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li class="nav-item">
                 <a class="btn btn-light" href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
             </li>

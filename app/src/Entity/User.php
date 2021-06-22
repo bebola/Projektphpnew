@@ -74,6 +74,24 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $firstName = '';
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lastName = '';
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $birthYear = null;
+
+    /**
      * Roles.
      *
      * @ORM\Column(type="json")
@@ -180,6 +198,54 @@ class User implements UserInterface
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return (string) $this->firstName;
+    }
+
+    /**
+     * @param string|null $firstName
+     */
+    public function setFirstName(?string $firstName): void
+    {
+        $this->firstName = (string) $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return (string) $this->lastName;
+    }
+
+    /**
+     * @param string|null $lastName
+     */
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = (string) $lastName;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getBirthYear(): ?\DateTime
+    {
+        return $this->birthYear;
+    }
+
+    /**
+     * @param \DateTime|null $birthYear
+     */
+    public function setBirthYear(?\DateTime $birthYear): void
+    {
+        $this->birthYear = $birthYear;
     }
 
     /**

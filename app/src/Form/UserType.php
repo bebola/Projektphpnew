@@ -7,9 +7,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,6 +38,33 @@ class UserType extends AbstractType
             EmailType::class,
             [
                 'label' => 'label_email',
+                'required' => true,
+                'attr' => ['max_length' => 255],
+            ]
+        );
+        $builder->add(
+            'firstName',
+            TextType::class,
+            [
+                'label' => 'label_first_name',
+                'required' => true,
+                'attr' => ['max_length' => 255],
+            ]
+        );
+        $builder->add(
+            'lastName',
+            TextType::class,
+            [
+                'label' => 'label_last_name',
+                'required' => true,
+                'attr' => ['max_length' => 255],
+            ]
+        );
+        $builder->add(
+            'birthYear',
+            DateType::class,
+            [
+                'label' => 'label_birth_year',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]

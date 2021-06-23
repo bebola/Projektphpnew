@@ -1,4 +1,7 @@
 <?php
+/**
+ * Photos repository.
+ */
 
 namespace App\Repository;
 

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Home controller.
+ */
 
 namespace App\Controller;
 

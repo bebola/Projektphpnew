@@ -206,6 +206,10 @@
                 <source>label_new_password_repeated</source>
                 <target>Repeat new password</target>
             </trans-unit>
+            <trans-unit id="45">
+                <source>message_created_successfully</source>
+                <target>Created successfully</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

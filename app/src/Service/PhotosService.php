@@ -50,7 +50,7 @@ class PhotosService
     }
 
     /**
-     * @param int $id
+     * @param int $id\
      * @return Photos|null
      */
     public function getOne(int $id)

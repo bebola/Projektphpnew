@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Galleries repository.
+ */
 namespace App\Repository;
 
     use App\Entity\Galleries;
@@ -8,6 +10,8 @@ namespace App\Repository;
     use Doctrine\Persistence\ManagerRegistry;
 
     /**
+     * Class GalleriesRepository
+     *
      * @method Galleries|null find($id, $lockMode = null, $lockVersion = null)
      * @method Galleries|null findOneBy(array $criteria, array $orderBy = null)
      * @method Galleries[]    findAll()
@@ -24,7 +28,12 @@ namespace App\Repository;
          *
          * @constant int
          */
-        const PAGINATOR_ITEMS_PER_PAGE = 3;
+        const PAGINATOR_ITEMS_PER_PAGE = 10;
+        /**
+         * GalleriesRepository constructor.
+         *
+         * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+         */
 
         public function __construct(ManagerRegistry $registry)
         {
@@ -57,15 +66,19 @@ namespace App\Repository;
             $this->_em->remove($Galleries);
             $this->_em->flush();
         }
-
-
+        /**
+         * Query all records.
+         *
+         * @return \Doctrine\ORM\QueryBuilder Query builder
+         */
         public function queryAll(): QueryBuilder
         {
             return $this->getOrCreateQueryBuilder()
                 ->orderBy('Galleries.updatedAt', 'DESC');
         }
-
         /**
+         * Get or create new query builder.
+         *
          * @param int $id
          * @return Galleries|null
          * @throws \Doctrine\ORM\NonUniqueResultException
@@ -81,46 +94,16 @@ namespace App\Repository;
 
             return $qb->getQuery()->getOneOrNullResult();
         }
-
+        /**
+         * Get or create new query builder.
+         *
+         * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+         *
+         * @return \Doctrine\ORM\QueryBuilder Query builder
+         */
         private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
         {
             return $queryBuilder ?? $this->createQueryBuilder( 'Galleries');
         }
 
-
-
-
-
-
-
-
-
-        // /**
-        //  * @return Galleries[] Returns an array of Galleries objects
-        //  */
-        /*
-        public function findByExampleField($value)
-        {
-            return $this->createQueryBuilder('c')
-                ->andWhere('c.exampleField = :val')
-                ->setParameter('val', $value)
-                ->orderBy('c.id', 'ASC')
-                ->setMaxResults(10)
-                ->getQuery()
-                ->getResult()
-            ;
-        }
-        */
-
-        /*
-        public function findOneBySomeField($value): ?Galleries
-        {
-            return $this->createQueryBuilder('c')
-                ->andWhere('c.exampleField = :val')
-                ->setParameter('val', $value)
-                ->getQuery()
-                ->getOneOrNullResult()
-            ;
-        }
-        */
 }

@@ -6,9 +6,6 @@
 namespace App\Form;
 
 use App\Entity\Comments;
-use App\Entity\Galleries;
-use App\Entity\Photos;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

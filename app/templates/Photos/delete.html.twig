@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    <div id="container5">
+    <div id="form2">
     <h1>{{ 'title_Photos_delete'|trans({'%id%': Photos.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('Photos_delete', {id: Photos.id}) }) }}
     {{ form_widget(form) }}
@@ -15,6 +17,8 @@
         <a href="{{ url('Photos_index') }}" class="btn btn-link">
             {{ 'action_back_to_list'|trans }}
         </a>
+    </div>
+    </div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

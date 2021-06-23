@@ -182,6 +182,30 @@
                 <source>title_home</source>
                 <target>Home</target>
             </trans-unit>
+            <trans-unit id="39">
+                <source>title_User_edit</source>
+                <target>Edit your data</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>label_first_name</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>label_last_name</source>
+                <target>Surname</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>label_birth_year</source>
+                <target>Birthday</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source> label_new_password</source>
+                <target>New password</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>label_new_password_repeated</source>
+                <target>Repeat new password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

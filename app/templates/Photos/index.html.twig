@@ -9,37 +9,32 @@
         {{ 'title_Photos_list'|trans }}
     </h1>
     {% if pagination is defined and pagination.items|length %}
-        <div class="row">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ 'label_photo'|trans }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'Photos.title') }}</th>
-                <th>{{ 'label_gallery'|trans }}</th>
-                <th>{{ 'label_actions'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="row justify-content-around">
+            <body>
             {% for Photos in pagination.items %}
-                <tr>
-                    <td><img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.title }}" width="110px" height="150px"></td>
-                    <td>{{ Photos.title }}</td>
-                    <td>{{ Photos.galleries.title }}</td>
-                    <td>
+                <div style="text-align: center">
+                <dl>
+                    <dt><img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.title }}" width="110px" height="150px"></dt>
+                    <div style="color: blue">
+                    <dd>{{'label_title'|trans}}</dd></div>
+                    <dd>{{ Photos.title }}</dd>
+                    <div style="color: blue">
+                    <dd>{{ 'label_gallery'|trans }}</dd></div>
+                    <dd>{{ Photos.galleries.title }}</dd>
+                    <dt>
                         <a href="{{ url('Photos_show', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Zobacz</button></a>
                         <a href="{{ url('Comments_create', {photoId: Photos.id}) }}"><button type="button" class="btn btn-light">Skomentuj</button></a>
                         {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ url('Photos_edit', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Edytuj</button></a>
                         <a href="{{ url('Photos_delete', {id: Photos.id}) }}"><button type="button" class="btn btn-light">Usuń</button></a>
                         {% endif %}
-                    </td>
-                </tr>
+                    </dt>
+                </dl></div>
             {% endfor %}
-            </tbody>
-        </table>
+            </body>
+            </div>
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
-        </div>
         </div>
     {% else %}
         <p>

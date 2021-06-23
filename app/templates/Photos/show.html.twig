@@ -22,7 +22,9 @@
             <dd>{{  Photos.text }}</dd>
         </dl>
         {% if Photos.Comments|length %}
-            <div class="row">
+
+            <h3>Komentarze</h3>
+            <div class="row justify-content-around">
                 {% for Comment in Photos.Comments %}
                     <div style="border: 1px solid #000000;">
                         <dl class="dl-horizontal">

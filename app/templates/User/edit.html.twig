@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    <div id="container4">
+    <div id="form">
     <h1>{{ 'title_User_edit'|trans }}</h1>
     {{ form_start(form, { method: 'PUT', action: url('User_edit')}) }}
     {{ form_widget(form) }}
@@ -15,6 +17,8 @@
         <a href="{{ url('Galleries_index') }}" class="btn btn-link">
             {{ 'action_back_to_list'|trans }}
         </a>
+    </div>
+    </div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

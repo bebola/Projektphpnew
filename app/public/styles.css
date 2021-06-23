@@ -9,6 +9,9 @@ h1 {
     margin-bottom: 0.5em;
     text-align: center;
 }
+h3 {
+    text-align: center;
+}
 img {
     display: block;
     margin: 0 auto;
@@ -16,6 +19,14 @@ img {
 }
 #form {
     width:800px;
+    display: block;
+    height:200px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#form2{
+    width:300px;
     display: block;
     height:200px;
     margin-left: auto;
@@ -33,6 +44,29 @@ img {
 #container2 {
     width:1000px;
     height: 200px;
+    margin-top:50px;
+    background-color: #f8f9fb;
+    margin-left: auto;
+    margin-right: auto;
+}
+#container3 {
+    width:1000px;
+    height: 280px;
+    margin-top:50px;
+    background-color: #f8f9fb;
+    margin-left: auto;
+    margin-right: auto;
+}
+#container4 {
+    width:1000px;
+    height: 800px;
+    margin-top:50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#container5 {
+    width:400px;
+    height: 300px;
     margin-top:50px;
     background-color: #f8f9fb;
     margin-left: auto;

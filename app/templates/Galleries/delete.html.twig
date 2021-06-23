@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+<div id="container5">
+    <div id="form2">
     <h1>{{ 'title_Galleries_delete'|trans({'%id%': Galleries.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('Galleries_delete', {id: Galleries.id}) }) }}
     {{ form_widget(form) }}
@@ -16,6 +18,8 @@
             {{ 'action_back_to_list'|trans }}
         </a>
     </div>
+    </div>
+</div>
     {{ form_end(form) }}
 {% endblock %}
 

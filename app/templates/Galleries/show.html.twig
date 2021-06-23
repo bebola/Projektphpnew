@@ -20,10 +20,11 @@
             <dd>{{  Galleries.title }}</dd>
         </dl>
         {% if Galleries.Photos|length %}
-        <div class="row">
+        <div class="row justify-content-around">
             {% for Photos in Galleries.Photos %}
                 <div style="float: left">
                     <img src="{{ asset('uploads/'~Photos.filename) }}" alt="{{ Photos.filename }}">
+                    <dd>{{  Photos.title }}</dd>
                 </div>
             {% endfor %}
         </div>

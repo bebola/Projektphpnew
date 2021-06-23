@@ -188,11 +188,35 @@
             </trans-unit>
             <trans-unit id="37">
                 <source>title_Comments_details</source>
-                <target>Szczegóły komntarza</target>
+                <target>Szczegóły komentarza</target>
             </trans-unit>
             <trans-unit id="38">
                 <source>title_home</source>
                 <target>Home</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>title_User_edit</source>
+                <target>Edytuj swoje dane</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>label_first_name</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>label_last_name</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>label_birth_year</source>
+                <target>Data urodzenia</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>label_new_password</source>
+                <target>Nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>label_new_password_repeated</source>
+                <target>Powtórz nowe hasło</target>
             </trans-unit>
         </body>
     </file>

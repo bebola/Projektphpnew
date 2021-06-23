@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    <div id="container5">
+    <div id="form2">
     <h1>{{ 'title_Comments_delete'|trans({'%id%': Comments.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('Comments_delete', {id: Comments.id}) }) }}
     {{ form_widget(form) }}
@@ -15,6 +17,8 @@
         <a href="{{ url('Comments_index') }}" class="btn btn-link">
             {{ 'action_back_to_list'|trans }}
         </a>
+    </div>
+    </div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

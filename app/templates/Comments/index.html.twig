@@ -36,13 +36,10 @@
                     <td>{{ Comments.email }}</td>
                     <td>{{ Comments.text }}</td>
                     <td>
-                        <a href="{{ url('Comments_show', {id: Comments.id}) }}" title="{{ 'action_view'|trans }}">
-                            {{'action_view'|trans }}
+                        <a href="{{ url('Comments_show', {id: Comments.id}) }}"><button type="button" class="btn btn-light">Zobacz</button></a>
                         </a>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ url('Comments_delete', {id: Comments.id}) }}" title="{{ 'action_delete'|trans }}">
-                                {{'action_delete'|trans }}
-                            </a>
+                            <a href="{{ url('Comments_delete', {id: Comments.id}) }}"><button type="button" class="btn btn-light">Usuń</button></a>
                         {% endif %}
                     </td>
                 </tr>

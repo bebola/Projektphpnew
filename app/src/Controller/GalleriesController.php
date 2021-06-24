@@ -7,7 +7,6 @@ namespace App\Controller;
 
 use App\Entity\Galleries;
 use App\Form\GalleriesType;
-use App\Repository\GalleriesRepository;
 use App\Service\GalleriesService;
 use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,7 +87,6 @@ class GalleriesController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request     $request                HTTP request
-     * @param \App\Repository\GalleriesRepository          $GalleriesRepository   Galleries Repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -101,14 +99,14 @@ class GalleriesController extends AbstractController
      *     name="galleries_create",
      * )
      */
-    public function create(Request $request, GalleriesRepository $GalleriesRepository): Response
+    public function create(Request $request): Response
     {
         $Galleries = new Galleries();
         $form = $this->createForm(GalleriesType::class, $Galleries);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $GalleriesRepository->save($Galleries);
+            $this->GalleriesService->save($Galleries);
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -138,13 +136,13 @@ class GalleriesController extends AbstractController
      *     name="galleries_edit",
      * )
      */
-    public function edit(Request $request, Galleries $Galleries, GalleriesRepository $GalleriesRepository ): Response
+    public function edit(Request $request, Galleries $Galleries): Response
     {
         $form = $this->createForm(GalleriesType::class, $Galleries, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $GalleriesRepository->save($Galleries);
+            $this->GalleriesService->save($Galleries);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -164,7 +162,6 @@ class GalleriesController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Galleries                     $Galleries         Galleries entity
-     * @param \App\Repository\GalleriesRepository        $GalleriesRepository Galleries repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -178,7 +175,7 @@ class GalleriesController extends AbstractController
      *     name="Galleries_delete",
      * )
      */
-    public function delete(Request $request, Galleries $Galleries, GalleriesRepository $GalleriesRepository): Response
+    public function delete(Request $request, Galleries $Galleries): Response
     {
         $form = $this->createForm(FormType::class, $Galleries, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -188,7 +185,8 @@ class GalleriesController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $GalleriesRepository->delete($Galleries);
+            $this->GalleriesService->delete($Galleries);
+
             $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('Galleries_index');

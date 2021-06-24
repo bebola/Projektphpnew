@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Comments;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
+use App\Service\CommentsService;
 use App\Service\PhotosService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentsController extends AbstractController
 {
     /**
+     * @var CommentsService
+     */
+    private CommentsService $commentsService;
+
+    /**
      * @var PhotosService
      */
     private PhotosService $photosService;
@@ -32,8 +38,9 @@ class CommentsController extends AbstractController
      * CommentsController constructor.
      * @param PhotosService $photosService
      */
-    public function __construct(PhotosService $photosService)
+    public function __construct(CommentsService $commentsService, PhotosService $photosService)
     {
+        $this->commentsService = $commentsService;
         $this->photosService = $photosService;
     }
 
@@ -41,8 +48,6 @@ class CommentsController extends AbstractController
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\CommentsRepository        $CommentsRepository Comments repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -52,13 +57,9 @@ class CommentsController extends AbstractController
      *     name="Comments_index",
      * )
      */
-    public function index(Request $request, CommentsRepository $CommentsRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $CommentsRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            CommentsRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $pagination = $this->commentsService->createPaginatedList($request->query->getInt('page', 1));
 
         return $this->render(
             'Comments/index.html.twig',
@@ -104,7 +105,7 @@ class CommentsController extends AbstractController
      *     name="Comments_create",
      * )
      */
-    public function create(Request $request, int $photoId, CommentsRepository $CommentsRepository): Response
+    public function create(Request $request, int $photoId): Response
     {
         $Photos = $this->photosService->getOne($photoId);
         if($Photos === null) {
@@ -118,10 +119,10 @@ class CommentsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $Comments->setCreatedAt(new \DateTime());
-            $Comments->setUpdatedAt(new \DateTime());
             $Comments->setPhotos($Photos);
-            $CommentsRepository->save($Comments);
+            $this->commentsService->save($Comments);
+
+            $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('Comments_index');
         }
@@ -150,7 +151,7 @@ class CommentsController extends AbstractController
      *     name="Comments_delete",
      * )
      */
-    public function delete(Request $request, Comments $Comments, CommentsRepository $CommentsRepository): Response
+    public function delete(Request $request, Comments $Comments): Response
     {
         $form = $this->createForm(FormType::class, $Comments, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -160,7 +161,8 @@ class CommentsController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $CommentsRepository->delete($Comments);
+            $this->commentsService->delete($Comments);
+
             $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('Comments_index');

@@ -60,7 +60,9 @@ class PhotosRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('Photos')
             ->select('Photos', 'Comments')
-            ->join('Photos.Comments', 'Comments')
+            ->leftJoin('Photos.Comments', 'Comments')
+            ->where('Photos.id = :id')
+            ->setParameter('id', $id)
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

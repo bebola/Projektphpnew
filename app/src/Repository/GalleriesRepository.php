@@ -87,7 +87,7 @@ namespace App\Repository;
         {
             $qb = $this->createQueryBuilder('Galleries')
                 ->select('Galleries', 'Photos')
-                ->join('Galleries.Photos', 'Photos')
+                ->leftJoin('Galleries.Photos', 'Photos')
                 ->where('Galleries.id = :id')
                 ->setParameter('id', $id)
             ;

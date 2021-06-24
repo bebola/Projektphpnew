@@ -75,18 +75,21 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstName = '';
 
     /**
      * @var string
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName = '';
 
     /**
      * @var \DateTime
+     *
      * @ORM\Column(type="date", nullable=true)
      */
     private $birthYear = null;

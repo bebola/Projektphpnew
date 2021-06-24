@@ -7,10 +7,8 @@ namespace App\Controller;
 
 use App\Entity\Comments;
 use App\Form\CommentsType;
-use App\Repository\CommentsRepository;
 use App\Service\CommentsService;
 use App\Service\PhotosService;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +34,8 @@ class CommentsController extends AbstractController
 
     /**
      * CommentsController constructor.
-     * @param PhotosService $photosService
+     * @param CommentsService $commentsService Comments Service
+     * @param PhotosService   $photosService   Photos Service
      */
     public function __construct(CommentsService $commentsService, PhotosService $photosService)
     {
@@ -47,7 +46,7 @@ class CommentsController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -70,7 +69,7 @@ class CommentsController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Comments $Comments Comments entity
+     * @param \App\Entity\Comments $comments Comments entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -81,18 +80,16 @@ class CommentsController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Comments $Comments): Response
+    public function show(Comments $comments): Response
     {
         return $this->render(
             'Comments/show.html.twig',
-            ['Comments' => $Comments]
+            ['Comments' => $comments]
         );
     }
     /**
      * Create action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\CommentsRepository        $CommentsRepository Comments repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -104,23 +101,26 @@ class CommentsController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="Comments_create",
      * )
+     *
+     * @param int                                       $photoId PhotoId
+     *
      */
     public function create(Request $request, int $photoId): Response
     {
-        $Photos = $this->photosService->getOne($photoId);
-        if($Photos === null) {
+        $photos = $this->photosService->getOne($photoId);
+        if (null === $photos) {
             return $this->redirectToRoute('Comments_index');
         }
 
-        $Comments = new Comments();
-        $form = $this->createForm(CommentsType::class, $Comments, [
-            'action' => $this->generateUrl('Comments_create', ['photoId' => $Photos->getId()])
+        $comments = new Comments();
+        $form = $this->createForm(CommentsType::class, $comments, [
+            'action' => $this->generateUrl('Comments_create', ['photoId' => $photos->getId()]),
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $Comments->setPhotos($Photos);
-            $this->commentsService->save($Comments);
+            $comments->setPhotos($photos);
+            $this->commentsService->save($comments);
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -135,9 +135,8 @@ class CommentsController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Comments                    $Comments           Comments entity
-     * @param \App\Repository\CommentsRepository        $CommentsRepository Comments repository
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
+     * @param \App\Entity\Comments                      $comments Comments entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -151,9 +150,9 @@ class CommentsController extends AbstractController
      *     name="Comments_delete",
      * )
      */
-    public function delete(Request $request, Comments $Comments): Response
+    public function delete(Request $request, Comments $comments): Response
     {
-        $form = $this->createForm(FormType::class, $Comments, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $comments, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -161,7 +160,7 @@ class CommentsController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->commentsService->delete($Comments);
+            $this->commentsService->delete($comments);
 
             $this->addFlash('success', 'message.deleted_successfully');
 
@@ -172,7 +171,7 @@ class CommentsController extends AbstractController
             'Comments/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'Comments' => $Comments,
+                'Comments' => $comments,
             ]
         );
     }

@@ -35,6 +35,10 @@ class CommentsRepository extends ServiceEntityRepository
      * CommentsRepository constructor.
      *
      */
+    /**
+     * CommentsRepository constructor.
+     * @param ManagerRegistry $registry Registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comments::class);
@@ -42,27 +46,27 @@ class CommentsRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Comments $Comments Comments entity
+     * @param \App\Entity\Comments $comments Comments entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Comments $Comments): void
+    public function save(Comments $comments): void
     {
-        $this->_em->persist($Comments);
+        $this->_em->persist($comments);
         $this->_em->flush();
     }
     /**
      * Delete record.
      *
-     * @param \App\Entity\Comments $Comments Comments entity
+     * @param \App\Entity\Comments $comments Comments entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Comments $Comments): void
+    public function delete(Comments $comments): void
     {
-        $this->_em->remove($Comments);
+        $this->_em->remove($comments);
         $this->_em->flush();
     }
     /**

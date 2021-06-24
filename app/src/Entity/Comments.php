@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * This work, including the code samples, is licensed under a Creative Commons BY-SA 3.0 license.
+ */
 namespace App\Entity;
 
 use App\Repository\CommentsRepository;
@@ -40,18 +42,29 @@ class Comments
      *   @ORM\JoinColumn(name="photos_id", referencedColumnName="id")
      * })
      */
-    private $Photos;
+    private $photos;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email Email
+     *
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -59,11 +72,19 @@ class Comments
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNick(): ?string
     {
         return $this->nick;
     }
 
+    /**
+     * @param string $nick Nick
+     *
+     * @return $this
+     */
     public function setNick(string $nick): self
     {
         $this->nick = $nick;
@@ -71,11 +92,19 @@ class Comments
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getText(): ?string
     {
         return $this->text;
     }
 
+    /**
+     * @param string $text Text
+     *
+     * @return $this
+     */
     public function setText(string $text): self
     {
         $this->text = $text;
@@ -83,14 +112,22 @@ class Comments
         return $this;
     }
 
+    /**
+     * @return Photos|null
+     */
     public function getPhotos(): ?Photos
     {
-        return $this->Photos;
+        return $this->photos;
     }
 
-    public function setPhotos(?Photos $Photos): self
+    /**
+     * @param Photos|null $photos Photos
+     *
+     * @return $this
+     */
+    public function setPhotos(?Photos $photos): self
     {
-        $this->Photos = $Photos;
+        $this->photos = $photos;
 
         return $this;
     }

@@ -18,18 +18,16 @@ class Galleriesfixtures extends AbstractBaseFixtures
      *
      * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
      */
-
     public function loadData(ObjectManager $manager): void
     {
             $this->createMany(50, 'Galleries', function ($i) {
-                    $Galleries = new Galleries();
-                    $Galleries->setTitle($this->faker->word);
-                    $Galleries->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-                    $Galleries->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+                    $galleries = new Galleries();
+                    $galleries->setTitle($this->faker->word);
+                    $galleries->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+                    $galleries->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
 
-                return $Galleries;
-            }
-            );
+                return $galleries;
+            });
         $manager->flush();
     }
 }

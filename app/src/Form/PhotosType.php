@@ -77,8 +77,8 @@ class PhotosType extends AbstractType
             EntityType::class,
             [
                 'class' => Galleries::class,
-                'choice_label' => function ($Galleries) {
-                    return $Galleries->getTitle();
+                'choice_label' => function ($galleries) {
+                    return $galleries->getTitle();
                 },
                 'label' => 'label_gallery',
                 'placeholder' => 'label_none',
@@ -107,5 +107,4 @@ class PhotosType extends AbstractType
     {
         return 'Photos';
     }
-
 }

@@ -10,7 +10,6 @@ use App\Repository\GalleriesRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
-
 /**
  * Class GalleriesService.
  */
@@ -22,7 +21,7 @@ class GalleriesService
      *
      * @var \App\Repository\GalleriesRepository
      */
-    private $GalleriesRepository;
+    private $galleriesRepository;
 
     /**
      * Paginator.
@@ -33,13 +32,13 @@ class GalleriesService
     /**
      * GalleriesService constructor.
      *
-     * @param \App\Repository\GalleriesRepository      $GalleriesRepository Galleries repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
-     * @param \App\Service\FileUploader $fileUploader
+     * @param \App\Repository\GalleriesRepository     $galleriesRepository Galleries repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
+     *
      */
-    public function __construct(GalleriesRepository $GalleriesRepository, PaginatorInterface $paginator)
+    public function __construct(GalleriesRepository $galleriesRepository, PaginatorInterface $paginator)
     {
-        $this->GalleriesRepository = $GalleriesRepository;
+        $this->galleriesRepository = $galleriesRepository;
         $this->paginator = $paginator;
     }
     /**
@@ -48,11 +47,12 @@ class GalleriesService
      * @param int $page Page number
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     *
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->GalleriesRepository->queryAll(),
+            $this->galleriesRepository->queryAll(),
             $page,
             GalleriesRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -60,36 +60,38 @@ class GalleriesService
     /**
      * Save Galleries.
      *
-     * @param \App\Entity\Galleries $category Galleries entity
+     * @param \App\Entity\Galleries $galleries Galleries entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Galleries $Galleries): void
+    public function save(Galleries $galleries): void
     {
-        $this->GalleriesRepository->save($Galleries);
+        $this->galleriesRepository->save($galleries);
     }
 
     /**
      * Delete Galleries.
      *
-     * @param \App\Entity\Galleries $Galleries Galleries entity
+     * @param \App\Entity\Galleries $galleries Galleries entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Galleries $Galleries): void
+    public function delete(Galleries $galleries): void
     {
-        $this->GalleriesRepository->delete($Galleries);
+        $this->galleriesRepository->delete($galleries);
     }
 
     /**
      * @param int $id
+     *
      * @return Galleries|null
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getOneWithPhotos(int $id)
     {
-        return $this->GalleriesRepository->getOneWithPhotos($id);
+        return $this->galleriesRepository->getOneWithPhotos($id);
     }
 }

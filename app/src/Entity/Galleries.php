@@ -79,7 +79,7 @@ class Galleries
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Photos", mappedBy="gallery", fetch="EXTRA_LAZY" ,)
      */
-    private Collection $Photos;
+    private Collection $photos;
 
     /**
      * Code.
@@ -106,7 +106,7 @@ class Galleries
      */
     public function __construct()
     {
-        $this->Photos = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     /**
@@ -176,31 +176,46 @@ class Galleries
      */
     public function getPhotos(): Collection
     {
-       return $this->Photos;
+        return $this->photos;
     }
 
-    public function addPhotos(Photos $Photos): void
+    /**
+     * @param Photos $photos Photos
+     */
+    public function addPhotos(Photos $photos): void
     {
-        if (!$this->Photos->contains($Photos)){
-            $this->Photos[] = $Photos;
-            $Photos->setGalleries($this);
+        if (!$this->photos->contains($photos)) {
+            $this->photos[] = $photos;
+            $photos->setGalleries($this);
         }
     }
-    public function removePhotos(Photos $Photos): void
+
+    /**
+     * @param Photos $photos Photos
+     */
+    public function removePhotos(Photos $photos): void
     {
-        if ($this->Photos->contains($Photos)){
-            $this->Photos->remove($Photos);
-            if ($Photos->getGalleries() === $this) {
-                $Photos->setGalleries(null);
+        if ($this->photos->contains($photos)) {
+            $this->photos->remove($photos);
+            if ($photos->getGalleries() === $this) {
+                $photos->setGalleries(null);
             }
         }
     }
 
+    /**
+     * @return string|null
+     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
+    /**
+     * @param string $code
+     *
+     * @return $this
+     */
     public function setCode(string $code): self
     {
         $this->code = $code;

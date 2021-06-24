@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * Class UserController.
  *
@@ -33,9 +34,7 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Photos                      $Photos           Photos entity
-     * @param \App\Repository\PhotosRepository        $PhotosRepository Photos repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -50,14 +49,14 @@ class UserController extends AbstractController
      */
     public function edit(Request $request): Response
     {
-        $User = $this->getUser();
+        $user = $this->getUser();
 
-        $form = $this->createForm(UserType::class, $User, ['method' => 'PUT']);
+        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPlainPassword = $form->get('newPassword')->getData();
-            $this->userService->save($User, $newPlainPassword);
+            $this->userService->save($user, $newPlainPassword);
 
             $this->addFlash('success', 'message_updated_successfully');
 

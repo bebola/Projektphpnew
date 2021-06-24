@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Class GalleriesController.
  *
@@ -24,17 +23,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GalleriesController extends AbstractController
 {
-    private GalleriesService $GalleriesService;
+    private GalleriesService $galleriesService;
 
     /**
      * GalleriesController constructor.
      *
-     * @param \App\Service\GalleriesService $GalleriesService Galleries service
+     * @param \App\Service\GalleriesService $galleriesService Galleries service
      */
-
-    public function __construct(GalleriesService $GalleriesService)
+    public function __construct(GalleriesService $galleriesService)
     {
-        $this->GalleriesService = $GalleriesService;
+        $this->galleriesService = $galleriesService;
     }
 
     /**
@@ -52,7 +50,7 @@ class GalleriesController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $pagination = $this->GalleriesService->createPaginatedList($request->query->getInt('page', 1));
+        $pagination = $this->galleriesService->createPaginatedList($request->query->getInt('page', 1));
 
         return $this->render(
             'Galleries\index.html.twig',
@@ -63,9 +61,7 @@ class GalleriesController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Galleries $Galleries
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -73,20 +69,27 @@ class GalleriesController extends AbstractController
      *     name="Galleries_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @param Request $request request
+     * @param int     $id      id
+     *
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
      */
     public function show(Request $request, int $id): Response
     {
-        $Galleries = $this->GalleriesService->getOneWithPhotos($id);
+        $galleries = $this->galleriesService->getOneWithPhotos($id);
 
         return $this->render(
             'Galleries/show.html.twig',
-            ['Galleries' => $Galleries]
+            ['Galleries' => $galleries]
         );
     }
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request     $request                HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -101,34 +104,35 @@ class GalleriesController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $Galleries = new Galleries();
-        $form = $this->createForm(GalleriesType::class, $Galleries);
+        $galleries = new Galleries();
+        $form = $this->createForm(GalleriesType::class, $galleries);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->GalleriesService->save($Galleries);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->galleriesService->save($galleries);
 
             $this->addFlash('success', 'message_created_successfully');
 
-            return $this->redirectToRoute( 'Galleries_index');
+            return $this->redirectToRoute('Galleries_index');
         }
-      return $this->render(
-        'Galleries/create.html.twig',
-          ['form' => $form->createView()]
-      );
+
+        return $this->render(
+            'Galleries/create.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Galleries $Galleries Galleries entity
-     * @param \App\Repository\GalleriesRepository $GalleriesRepository Galleries  repository
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Galleries                     $galleries Galleries entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws OptimisticLockException
+     *
      * @Route(
      *     "/{id}/edit",
      *     methods={"GET", "PUT"},
@@ -136,13 +140,13 @@ class GalleriesController extends AbstractController
      *     name="galleries_edit",
      * )
      */
-    public function edit(Request $request, Galleries $Galleries): Response
+    public function edit(Request $request, Galleries $galleries): Response
     {
-        $form = $this->createForm(GalleriesType::class, $Galleries, ['method' => 'PUT']);
+        $form = $this->createForm(GalleriesType::class, $galleries, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->GalleriesService->save($Galleries);
+            $this->galleriesService->save($galleries);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -153,15 +157,15 @@ class GalleriesController extends AbstractController
             'Galleries/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'Galleries' => $Galleries,
+                'Galleries' => $galleries,
             ]
         );
     }
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Galleries                     $Galleries         Galleries entity
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Galleries                     $galleries Galleries entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -175,9 +179,9 @@ class GalleriesController extends AbstractController
      *     name="Galleries_delete",
      * )
      */
-    public function delete(Request $request, Galleries $Galleries): Response
+    public function delete(Request $request, Galleries $galleries): Response
     {
-        $form = $this->createForm(FormType::class, $Galleries, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $galleries, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -185,7 +189,7 @@ class GalleriesController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->GalleriesService->delete($Galleries);
+            $this->galleriesService->delete($galleries);
 
             $this->addFlash('success', 'message.deleted_successfully');
 
@@ -196,7 +200,7 @@ class GalleriesController extends AbstractController
             'Galleries/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'Galleries' => $Galleries,
+                'Galleries' => $galleries,
             ]
         );
     }

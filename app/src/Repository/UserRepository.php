@@ -19,6 +19,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    /**
+     * UserRepository constructor.
+     * @param ManagerRegistry $registry Registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -26,6 +30,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     */
+    /**
+     * @param UserInterface $user               User
+     * @param string        $newEncodedPassword NewEncodedPassword
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -41,15 +52,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Save record.
      *
-     * @param \App\Entity\User $User Photos entity
+     * @param \App\Entity\User $user Photos entity
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(User $User): void
+    public function save(User $user): void
     {
-        $this->_em->persist($User);
+        $this->_em->persist($user);
         $this->_em->flush();
     }
-
 }

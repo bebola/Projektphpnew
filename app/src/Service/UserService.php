@@ -11,7 +11,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserService
- * @package App\Service
  */
 class UserService
 {
@@ -23,7 +22,8 @@ class UserService
 
     /**
      * UserService constructor.
-     * @param UserRepository $userRepository
+     * @param UserRepository               $userRepository  UserRepository
+     * @param UserPasswordEncoderInterface $passwordEncoder passwordEncoder
      */
     public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -32,8 +32,9 @@ class UserService
     }
 
     /**
-     * @param User $user
+     * @param User   $user
      * @param string $plainPassword
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

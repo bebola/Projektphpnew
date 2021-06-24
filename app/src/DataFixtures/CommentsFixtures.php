@@ -21,14 +21,14 @@ class CommentsFixtures extends AbstractBaseFixtures
     public function loadData(ObjectManager $manager): void
     {
         $this->createMany(3, 'Comments', function ($i) {
-            $Comments = new Comments();
-            $Comments->setNick($this->faker->word);
-            $Comments->setEmail(sprintf('admin%d@example.com', $i));
-            $Comments->setText($this->faker->sentence);
-            $Comments->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-            $Comments->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+            $comments = new Comments();
+            $comments->setNick($this->faker->word);
+            $comments->setEmail(sprintf('admin%d@example.com', $i));
+            $comments->setText($this->faker->sentence);
+            $comments->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+            $comments->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
 
-            return $Comments;
+            return $comments;
         });
 
         $manager->flush();

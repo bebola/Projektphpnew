@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * Class PhotosController.
  *
@@ -39,9 +38,7 @@ class PhotosController extends AbstractController
     /**
      * Index_action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\PhotosRepository            $PhotosRepository Photos repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -57,15 +54,16 @@ class PhotosController extends AbstractController
         $pagination = $this->photosService->createPaginatedList($request->query->getInt('page', 1));
 
         return $this->render(
-          'Photos\index.html.twig',
-        ['pagination' => $pagination]
-      );
+            'Photos\index.html.twig',
+            ['pagination' => $pagination]
+        );
     }
 
     /**
      * Show action.
      *
-     * @param int $id
+     * @param int $id id
+     *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
@@ -77,18 +75,17 @@ class PhotosController extends AbstractController
      */
     public function show(int $id): Response
     {
-        $Photos = $this->photosService->getOneWithComments($id);
+        $photos = $this->photosService->getOneWithComments($id);
 
         return $this->render(
             'Photos/show.html.twig',
-            ['Photos' => $Photos]
+            ['Photos' => $photos]
         );
     }
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\PhotosRepository        $PhotosRepository Photos repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -104,12 +101,12 @@ class PhotosController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $Photos = new Photos();
-        $form = $this->createForm(PhotosType::class, $Photos);
+        $photos = new Photos();
+        $form = $this->createForm(PhotosType::class, $photos);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->photosService->save($Photos, $form->get('file')->getData());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->photosService->save($photos, $form->get('file')->getData());
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -124,11 +121,9 @@ class PhotosController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Photos                      $Photos           Photos entity
-     * @param \App\Repository\PhotosRepository        $PhotosRepository Photos repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Photos                        $photos  Photos entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -139,14 +134,17 @@ class PhotosController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="Photos_edit",
      * )
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
      */
-    public function edit(Request $request, Photos $Photos): Response
+    public function edit(Request $request, Photos $photos): Response
     {
-        $form = $this->createForm(PhotosType::class, $Photos, ['method' => 'PUT']);
+        $form = $this->createForm(PhotosType::class, $photos, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->photosService->save($Photos, $form->get('file')->getData());
+            $this->photosService->save($photos, $form->get('file')->getData());
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -157,16 +155,15 @@ class PhotosController extends AbstractController
             'Photos/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'Photos' => $Photos,
+                'Photos' => $photos,
             ]
         );
     }
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Photos                     $Photos           Photos entity
-     * @param \App\Repository\PhotosRepository        $PhotosRepository Photos repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Photos                        $photos  Photos entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -180,9 +177,9 @@ class PhotosController extends AbstractController
      *     name="Photos_delete",
      * )
      */
-    public function delete(Request $request, Photos $Photos): Response
+    public function delete(Request $request, Photos $photos): Response
     {
-        $form = $this->createForm(FormType::class, $Photos, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $photos, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -190,7 +187,7 @@ class PhotosController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->photosService->delete($Photos);
+            $this->photosService->delete($photos);
 
             $this->addFlash('success', 'message.deleted_successfully');
 
@@ -201,7 +198,7 @@ class PhotosController extends AbstractController
             'Photos/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'Photos' => $Photos,
+                'Photos' => $photos,
             ]
         );
     }

@@ -183,7 +183,7 @@
                 <target>Dodaj</target>
             </trans-unit>
             <trans-unit id="36">
-                <source> message.deleted_successfully</source>
+                <source>message.deleted_successfully</source>
                 <target>Usunięto pomyślnie</target>
             </trans-unit>
             <trans-unit id="37">

@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class Photos.
  *
@@ -107,9 +106,9 @@ class Photos
     private $gallery;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="Photos")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="photos")
      */
-    private $Comments;
+    private $comments;
 
     /**
      * Photos constructor.
@@ -117,7 +116,7 @@ class Photos
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->Comments = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -203,11 +202,17 @@ class Photos
         $this->text = $text;
     }
 
+    /**
+     * @return Galleries|null
+     */
     public function getGalleries(): ?Galleries
     {
         return $this->gallery;
     }
 
+    /**
+     * @param Galleries|null $gallery
+     */
     public function setGalleries(?Galleries $gallery): void
     {
         $this->gallery = $gallery;
@@ -234,22 +239,33 @@ class Photos
      */
     public function getComments(): Collection
     {
-        return $this->Comments;
+        return $this->comments;
     }
 
+    /**
+     * @param Comments $comment
+     *
+     * @return $this
+     *
+     */
     public function addComment(Comments $comment): self
     {
-        if (!$this->Comments->contains($comment)) {
-            $this->Comments[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setPhotos($this);
         }
 
         return $this;
     }
 
+    /**
+     * @param Comments $comment
+     *
+     * @return $this
+     */
     public function removeComment(Comments $comment): self
     {
-        if ($this->Comments->removeElement($comment)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getPhotos() === $this) {
                 $comment->setPhotos(null);

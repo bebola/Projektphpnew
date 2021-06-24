@@ -4,7 +4,6 @@
  */
 namespace App\DataFixtures;
 
-use App\Entity\Comments;
 use App\Entity\Photos;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -23,17 +22,16 @@ class Photosfixtures extends AbstractBaseFixtures implements DependentFixtureInt
     public function loadData(ObjectManager $manager): void
     {
         $this->createMany(100, 'Photos', function ($i) {
-                $Photos = new Photos();
-                $Photos->setTitle($this->faker->sentence);
-                $Photos->setText($this->faker->sentence);
-                $Photos->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-                $Photos->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+                $photos = new Photos();
+                $photos->setTitle($this->faker->sentence);
+                $photos->setText($this->faker->sentence);
+                $photos->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+                $photos->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
 
-                $Photos->setGalleries($this->getRandomReference('Galleries'));
+                $photos->setGalleries($this->getRandomReference('Galleries'));
 
-                return $Photos;
-            }
-        );
+                return $photos;
+        });
         $manager->flush();
     }
 

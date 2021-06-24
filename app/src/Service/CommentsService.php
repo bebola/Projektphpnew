@@ -22,6 +22,11 @@ class CommentsService
     /** @var \Knp\Component\Pager\PaginatorInterface */
     private PaginatorInterface $paginator;
 
+    /**
+     * CommentsService constructor.
+     * @param CommentsRepository $commentsRepository
+     * @param PaginatorInterface $paginator
+     */
     public function __construct(CommentsRepository $commentsRepository, PaginatorInterface $paginator)
     {
         $this->commentsRepository = $commentsRepository;
@@ -52,6 +57,7 @@ class CommentsService
 
     /**
      * @param \App\Entity\Comments $comment
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

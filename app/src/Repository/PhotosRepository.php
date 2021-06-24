@@ -34,7 +34,7 @@ class PhotosRepository extends ServiceEntityRepository
     /**
      * PhotosRepository constructor.
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     * @param ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -53,21 +53,48 @@ class PhotosRepository extends ServiceEntityRepository
 
     /**
      * @param int $id
+     *
      * @return \App\Entity\Photos|null
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getOneWithComments(int $id)
     {
         $qb = $this->createQueryBuilder('Photos')
-            ->select('Photos', 'Comments')
-            ->leftJoin('Photos.Comments', 'Comments')
+            ->select('Photos', 'comments')
+            ->leftJoin('Photos.comments', 'comments')
             ->where('Photos.id = :id')
             ->setParameter('id', $id)
         ;
 
         return $qb->getQuery()->getOneOrNullResult();
     }
-
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Photos $photos Photos entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Photos $photos): void
+    {
+        $this->_em->persist($photos);
+        $this->_em->flush();
+    }
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Photos $photos Photos entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Photos $photos): void
+    {
+        $this->_em->remove($photos);
+        $this->_em->flush();
+    }
     /**
      * Get or create new query builder.
      *
@@ -78,31 +105,5 @@ class PhotosRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('Photos');
-    }
-    /**
-     * Save record.
-     *
-     * @param \App\Entity\Photos $Photos Photos entity
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save(Photos $Photos): void
-    {
-        $this->_em->persist($Photos);
-        $this->_em->flush();
-    }
-    /**
-    * Delete record.
-    *
-    * @param \App\Entity\Photos $Photos Photos entity
-    *
-    * @throws \Doctrine\ORM\ORMException
-    * @throws \Doctrine\ORM\OptimisticLockException
-    */
-    public function delete(Photos $Photos): void
-    {
-        $this->_em->remove($Photos);
-        $this->_em->flush();
     }
 }

@@ -48,6 +48,11 @@ class PhotosRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial Photos.{id, title, filename}',
+                'partial Gallery.{id, title}',
+            )
+            ->join('Photos.gallery', 'Gallery')
             ->orderBy('Photos.updatedAt', 'DESC');
     }
 

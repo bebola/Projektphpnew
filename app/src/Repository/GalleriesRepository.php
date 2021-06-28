@@ -72,6 +72,9 @@ class GalleriesRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial Galleries.{id, title, createdAt, updatedAt}'
+            )
             ->orderBy('Galleries.updatedAt', 'DESC');
     }
     /**

@@ -107,6 +107,8 @@ class Photos
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="photos", cascade={"remove"})
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\Collection")
      */
     private $comments;
 

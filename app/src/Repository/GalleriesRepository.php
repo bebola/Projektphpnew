@@ -87,7 +87,7 @@ class GalleriesRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('Galleries')
             ->select('Galleries', 'Photos')
-            ->leftJoin('Galleries.Photos', 'Photos')
+            ->leftJoin('Galleries.photos', 'Photos')
             ->where('Galleries.id = :id')
             ->setParameter('id', $id)
         ;

@@ -75,9 +75,9 @@ class Galleries
     /**
      * Getter for Id.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Galleries[] $Galleries Galleries
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Galleries[] $galleries Galleries
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Photos", mappedBy="gallery", fetch="EXTRA_LAZY" ,)
+     * @ORM\OneToMany(targetEntity="App\Entity\Photos", mappedBy="gallery", fetch="EXTRA_LAZY", cascade={"remove"})
      */
     private Collection $photos;
 

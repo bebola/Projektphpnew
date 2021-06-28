@@ -98,7 +98,7 @@ class Photos
     private $filename;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Galleries", inversedBy="Photos")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Galleries", inversedBy="photos")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      * })
@@ -106,7 +106,7 @@ class Photos
     private $gallery;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="photos")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="photos", cascade={"remove"})
      */
     private $comments;
 
@@ -223,7 +223,7 @@ class Photos
      */
     public function getFilename(): string
     {
-        return $this->filename;
+        return (string) $this->filename;
     }
 
     /**
